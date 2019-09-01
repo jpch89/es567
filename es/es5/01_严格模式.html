@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>01_严格模式</title>
+    </head>
+    <body>
+        <!--
+1. 理解:
+  * 除了正常运行模式(混杂模式)，ES5添加了第二种运行模式："严格模式"（strict mode）。
+  * 顾名思义，这种模式使得Javascript在更严格的语法条件下运行
+2.  目的/作用
+	* 消除Javascript语法的一些不合理、不严谨之处，减少一些怪异行为
+	* 消除代码运行的一些不安全之处，为代码的安全运行保驾护航
+	* 为未来新版本的Javascript做好铺垫
+3. 使用
+  * 在全局或函数的第一条语句定义为: 'use strict';
+  * 如果浏览器不支持, 只解析为一条简单的语句, 没有任何副作用
+4. 语法和行为改变
+    * 必须用 var 声明变量
+    * 禁止使用 delete 删除变量、对象、函数
+	* 禁止自定义的函数中的 this 指向 window
+    * 创建 eval 作用域，禁止使用 eval 作为变量名
+    * 函数不能有同名形参
+    * 禁止使用 arguments 作为变量名
+    * 禁止使用0前缀八进制和八进制转义字符串'\070'，需要使用0o和0O前缀与十六进制转义字符串代替
+    * 禁止使用 with 语句
+    * 新增保留关键字：
+    implements
+    interface
+    let
+    package
+    private
+    protected
+    public
+    static
+    yield
+-->
+
+        <script type="text/javascript">
+            "use strict";
+
+            // 报错 Reference Error
+            // username = "kobe";
+            var username = "kobe";
+            console.log(username);
+
+            function Person(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+
+            // Person('kobe', 39);  // 报错
+            new Person("kobe", 39);
+
+            var str = "nba";
+            eval("var str = 'CBA'; alert(str);"); // 输出 CBA
+
+            // 不使用严格模式的话，eval没有自己的作用域
+            // 在 eval 里面声明的变量会影响到全局
+            // 所以下面输出是 CBA
+            // 但是如果使用严格模式，下面输出是 nba
+            alert(str);
+
+            // 非严格模式中函数可以有同名形参
+            // 严格模式会报错
+            // function fun(arg1, arg1) {
+            //     console.log(arg1);
+            // }
+            // fun(1, 4);
+
+            // 禁止使用0前缀八进制和八进制转义字符串
+            // var number = 070;
+            // var number = "\070";
+
+            // eval 不能作为变量名
+            // var eval = 666;
+        </script>
+    </body>
+</html>

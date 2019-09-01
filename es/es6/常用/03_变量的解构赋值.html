@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>03_变量的解构赋值</title>
+    </head>
+    <body>
+        <!--
+            1. 理解:
+            * 从对象或数组中提取数据, 并赋值给变量(多个)
+            2. 对象的解构赋值
+            let {n, a} = {n:'tom', a:12}
+            3. 数组的解构赋值
+            let [a,b] = [1, 'atguigu'];
+            4. 用途
+            * 给多个形参赋值
+        -->
+        <script type="text/javascript">
+            // 解构就是解析结构
+            let obj = { username: "kobe", age: 39 };
+            // let username = obj.username;
+            // let age = obj.age;
+
+            // 左边以对象的结构来接收，对象中的属性相当于定义在全局的变量，并且要和右边的属性名相同
+            let { username, age } = obj;
+            // "kobe" 39
+            console.log(username, age);
+
+            let { u, a } = obj;
+            // undefined undefined
+            // 这样相当于 obj.u 和 obj.a，都是 undefined
+            console.log(u, a);
+
+            // 解构赋值可以不用全部解构出来，只挑选需要的属性
+
+            // *******************
+            // 数组解构赋值
+            let arr = [1, 3, 5, "abc", true];
+            let [x, y, z] = arr;
+            // 根据下标来取值
+            // 1 3 5
+            console.log(x, y, z);
+            let [, , , j, k] = arr;
+            console.log(j, k); // "abc" true
+
+            // 用途：给多个形参赋值
+            /*
+            function foo (obj) {
+                console.log(obj.username, obj.age);
+            }
+            foo(obj);
+            */
+
+            function foo({ username, age }) {
+                // 相当于：
+                // let {username, age} = obj;
+                console.log(username, age);
+            }
+            foo(obj);
+        </script>
+    </body>
+</html>

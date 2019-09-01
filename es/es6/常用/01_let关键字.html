@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>01_let关键字</title>
+    </head>
+    <body>
+        <button>测试1</button>
+        <br />
+        <button>测试2</button>
+        <br />
+        <button>测试3</button>
+        <br />
+        <!--
+          ***let
+          1. 作用:
+            * 与var类似, 用于声明一个变量
+          2. 特点:
+            * 在块作用域内有效
+            * 不能重复声明
+            * 不会预处理, 不存在提升
+          3. 应用:
+            * 循环遍历加监听
+            * 使用let取代var是趋势
+        -->
+        <script type="text/javascript">
+            let username = "kobe";
+            // let username = "kobe";
+            console.log(username);
+
+            // JS 代码在执行前会进行预解析（或者叫预处理）
+            // let 声明的变量不会预解析
+            console.log(age); // undefined
+            var age = 11;
+
+            // console.log(sex);  // 报错：ReferenceError
+            // let sex = "男";
+
+            let btns = document.getElementsByTagName("button");
+            // 性能优化：可以在初始化的部分写上 length = btns.length
+            for (var i = 0; i < btns.length; i++) {
+                var btn = btns[i];
+                btn.onclick = function() {
+                    alert(i);
+                    // 这里输出都是 3
+                    // 因为点击事件定义的是回调函数
+                    // 回调函数会被放到事件队列里面，等主线程代码执行完才会执行
+                    // 才会通过钩子的形式把回调函数拿来执行
+                };
+            }
+
+            // 解决方案一：闭包
+            // 每次循环执行，都产生一个函数的作用域
+            for (var i = 0; i < btns.length; i++) {
+                var btn = btns[i];
+                (function(i) {
+                    btn.onclick = function() {
+                        alert(i);
+                    };
+                })(i);
+            }
+
+            // 解决方案二：let
+            // let 具有块级作用域，在使用 i 的时候，就是属于自己块级作用域的数据
+            for (let i = 0; i < btns.length; i++) {
+                var btn = btns[i];
+                btn.onclick = function() {
+                    alert(i);
+                };
+            }
+        </script>
+    </body>
+</html>
