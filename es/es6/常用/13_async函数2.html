@@ -84,7 +84,9 @@
                         success: data => resolve(data),
                         // error: error => reject()
                         error: function(error) {
-                            reject();
+                            // 这里不用 reject()，而使用 resolve()，保证下面代码顺利执行
+                            // reject();
+                            resolve(false);
                         }
                     });
                 });
@@ -93,6 +95,10 @@
             async function sendXml() {
                 let result = await getNews("http://localhost:3000/news?id=7");
                 console.log(result);
+                if (!result) {
+                    alert("暂时没有新闻推送");
+                    return;
+                }
                 result = await getNews("http://localhost:3000" + result.commentsUrl);
                 console.log(result);
             }

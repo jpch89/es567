@@ -1,34 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>05_Set和Map数据结构</title>
-</head>
-<body>
-<!--
-1. Set容器 : 无序不可重复的多个value的集合体
-  * Set()
-  * Set(array)
-  * add(value)
-  * delete(value)
-  * has(value)
-  * clear()
-  * size
-2. Map容器 : 无序的 key不重复的多个key-value的集合体
-  * Map()
-  * Map(array)
-  * set(key, value)//添加
-  * get(key)
-  * delete(key)
-  * has(key)
-  * clear()
-  * size
--->
+    <head>
+        <meta charset="UTF-8" />
+        <title>05_Set和Map数据结构</title>
+    </head>
+    <body>
+        <!--
+        1. Set容器 : 无序不可重复的多个value的集合体
+            * Set()
+            * Set(array)
+            * add(value)
+            * delete(value)
+            * has(value)
+            * clear()
+            * size
+        2. Map容器 : 无序的 key不重复的多个key-value的集合体
+            * Map()
+            * Map(array)  // 这个是二维数组
+            * set(key, value)//添加
+            * get(key)
+            * delete(key)
+            * has(key)
+            * clear()
+            * size
+        -->
 
-<script type="text/javascript">
+        <script type="text/javascript">
+            // 团子注：Set容器类似 Python 里面的集合
+            let set = new Set([1, 1, 2, 2, 3, 5, 8]);
+            console.log(set);
 
+            set.add(7);
+            // set.size 等同于数组的 length
+            console.log(set.size, set);
+            console.log(set.has(8), set.has(666)); // true false
 
-</script>
-</body>
+            set.clear();
+            console.log(set.size);
 
+            // 团子注：Map就是映射，对应于 Python 里面的字典
+            let map = new Map([["username", "aaa"]]);
+            console.log(map);
+            console.log(map.size);
+            map.set("age", 36);
+            map.set(78, "haha");
+            console.log(map);
+            map.delete(78);
+            console.log(map);
+        </script>
+    </body>
 </html>

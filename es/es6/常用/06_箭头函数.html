@@ -28,7 +28,70 @@
         <script type="text/javascript">
             // let fun = function() {};
             let fun = () => console.log("我是箭头函数");
-            
+            // 箭头左边是形参列表，箭头右边是函数体
+
+            // 形参的情况
+            // 1. 没有形参，括号不能省略
+            let fun1 = () => console.log("我是箭头函数");
+            // 2. 只有一个形参，括号可以省略（只要有人在这里占着空位就行）
+            let fun2 = a => console.log(a);
+            fun2("aaa");
+            // 3. 两个及两个以上的形参，小括号不能省略
+            let fun3 = (x, y) => console.log(x, y);
+            fun3(25, 36);
+
+            // 函数体的情况
+            // 1. 函数体只有一条语句或者表达式
+            // 可以省略大括号，省略时会自动返回语句执行的结果或者表达式的结果
+            let fun4 = () => console.log("我是箭头函数");
+            fun4();
+            let fun5 = (x, y) => x + y;
+            console.log(fun5(24, 36));
+            let fun6 = (x, y) => {
+                return x + y;
+            };
+            console.log(fun6(24, 36));
+
+            // 2. 函数体不止一条语句或者是表达式的情况，大括号不能省略，省略会报错
+            let fun7 = (x, y) => {
+                console.log(x, y);
+                return x + y;
+            };
+            let res = fun7(35, 49);
+            console.log(res);
+
+            // ****************
+            // 测试箭头函数的this
+            let btn1 = document.getElementById("btn1");
+            let btn2 = document.getElementById("btn2");
+            // 常规函数
+            btn1.onclick = function() {
+                alert(this);
+            };
+            btn2.onclick = () => alert(this);
+
+            let obj = {
+                name: "箭头函数",
+                getName() {
+                    btn2.onclick = () => console.log(this);
+                }
+            };
+            obj.getName(); // 就是刚才定义的对象 obj
+
+            let obj2 = {
+                name: "箭头函数2",
+                getName: () => {
+                    btn2.onclick = () => {
+                        console.log(this);
+                    };
+                }
+            };
+            obj2.getName(); // Window
+            // 如果按照官方理解：看定义时所处的对象
+            obj.getName = () => {
+                // ...
+            };
+            // 这也是在 window 中定义的
         </script>
     </body>
 </html>

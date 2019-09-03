@@ -1,21 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>02_数值扩展</title>
-</head>
-<body>
-<!--
-1. 二进制与八进制数值表示法: 二进制用0b, 八进制用0o
-2. Number.isFinite(i) : 判断是否是有限大的数
-3. Number.isNaN(i) : 判断是否是NaN
-4. Number.isInteger(i) : 判断是否是整数
-5. Number.parseInt(str) : 将字符串转换为对应的数值
-6. Math.trunc(i) : 直接去除小数部分
--->
-<script type="text/javascript">
+    <head>
+        <meta charset="UTF-8" />
+        <title>02_数值扩展</title>
+    </head>
+    <body>
+        <!--
+            1. 二进制与八进制数值表示法: 二进制用0b, 八进制用0o
+            2. Number.isFinite(i) : 判断是否是有限大的数
+            3. Number.isNaN(i) : 判断是否是NaN
+            4. Number.isInteger(i) : 判断是否是整数
+            5. Number.parseInt(str) : 将字符串转换为对应的数值
+            6. Math.trunc(i) : 直接去除小数部分
+        -->
+        <script type="text/javascript">
+            console.log(0b1010);
+            console.log(0o56);
 
+            console.log(Number.isFinite(123)); // true
+            console.log(Number.isFinite(Infinity)); // false
 
-</script>
-</body>
+            console.log(Number.isNaN(NaN)); // true
+            // 这个居然是true
+            console.log(Number.isInteger(0.0)); // true
+            console.log(Number.parseInt("123abc")); // 123
+
+            console.log(Math.trunc(3.67)); // 3
+        </script>
+    </body>
 </html>

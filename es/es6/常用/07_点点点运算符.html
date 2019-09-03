@@ -1,34 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>07_3点运算符</title>
-</head>
-<body>
-<!--
-* 用途
-1. rest(可变)参数
-    * 用来取代arguments 但比 arguments 灵活,只能是最后部分形参参数
-    function fun(...values) {
-        console.log(arguments);
-        arguments.forEach(function (item, index) {
-            console.log(item, index);
-        });
-        console.log(values);
-        values.forEach(function (item, index) {
-            console.log(item, index);
-        })
-    }
-    fun(1,2,3);
-2. 扩展运算符
-  let arr1 = [1,3,5];
-  let arr2 = [2,...arr1,6];
-  arr2.push(...arr1);
--->
-<script type="text/javascript">
+    <head>
+        <meta charset="UTF-8" />
+        <title>07_3点运算符</title>
+    </head>
+    <body>
+        <!--
+        * 用途
+        1. rest(可变)参数
+            * 用来取代arguments 但比 arguments 灵活,只能是最后部分形参参数
+            function fun(...values) {
+                console.log(arguments);
+                arguments.forEach(function (item, index) {
+                    console.log(item, index);
+                });
+                console.log(values);
+                values.forEach(function (item, index) {
+                    console.log(item, index);
+                })
+            }
+            fun(1,2,3);
+        2. 扩展运算符
+            let arr1 = [1,3,5];
+            let arr2 = [2,...arr1,6];
+            arr2.push(...arr1);
+        -->
+        <script type="text/javascript">
+            function foo(a, b) {
+                // arguments 是一个伪数组
+                console.log(arguments);
 
+                // callee 是 arguments 的属性
+                // （不能打开注释，否则会递归到死机）
+                // arguments.callee(); // arguments.callee 指向函数本身，这里是递归
 
-</script>
+                // 因为 arguments 是一个伪数组，所以没有 forEach 方法，下面会报错
+                /*
+                arguments.forEach(function(value, index, array) {
+                    console.log(item, index);
+                });
+                */
+            }
+            foo(2, 65);
 
-</body>
+            function bar(a, ...values) {
+                console.log(arguments);
+                // 三点运算符收集的实参是一个数组
+                console.log(values);
+                values.forEach(function(value, index, array) {
+                    console.log(value, index);
+                });
+                // a 不会被收集，注意三点运算符必须放到最后面
+                console.log(a);
+            }
+            bar(1, 2, 3);
+
+            // *****************
+            let arr = [1, 6];
+            let arr1 = [2, 3, 4, 5];
+            arr = [1, ...arr1, 6];
+            console.log(arr);
+        </script>
+    </body>
 </html>

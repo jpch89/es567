@@ -1,21 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>08_形参默认值</title>
-</head>
-<body>
-<!--
-    * 形参的默认值----当不传入参数的时候默认使用形参里的默认值
-    function Point(x = 1,y = 2) {
-    this.x = x;
-    this.y = y;
-    }
--->
-<script type="text/javascript">
+    <head>
+        <meta charset="UTF-8" />
+        <title>08_形参默认值</title>
+    </head>
+    <body>
+        <!--
+            * 形参的默认值----当不传入参数的时候默认使用形参里的默认值
+            function Point(x = 1,y = 2) {
+            this.x = x;
+            this.y = y;
+            }
+        -->
+        <script type="text/javascript">
+            // 定义一个点的坐标的构造函数
+            function Point(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+            let p = new Point(10, 20);
+            console.log(p);
 
+            // 忘记传参，全是 undefined
+            let point = new Point();
 
-</script>
-
-</body>
+            function Point2(x = 0, y) {
+                this.x = x;
+                this.y = y;
+            }
+            let p2 = new Point2();
+            console.log(p2);
+        </script>
+    </body>
 </html>

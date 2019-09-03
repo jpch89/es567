@@ -1,52 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>11_Promise对象</title>
-</head>
-<body>
-<!--
-1. 理解:
-  * Promise对象: 代表了未来某个将要发生的事件(通常是一个异步操作)
-  * 有了promise对象, 可以将异步操作以同步的流程表达出来, 避免了层层嵌套的回调函数(俗称'回调地狱')
-  * ES6的Promise是一个构造函数, 用来生成promise实例
-2. 使用promise基本步骤(2步):
-  * 创建promise对象
-    let promise = new Promise((resolve, reject) => {
-        //初始化promise状态为 pending
-      //执行异步操作
-      if(异步操作成功) {
-        resolve(value);//修改promise的状态为fullfilled
-      } else {
-        reject(errMsg);//修改promise的状态为rejected
-      }
-    })
-  * 调用promise的then()
-    promise.then(function(
-      result => console.log(result),
-      errorMsg => alert(errorMsg)
-    ))
-3. promise对象的3个状态
-  * pending: 初始化状态
-  * fullfilled: 成功状态
-  * rejected: 失败状态
-4. 应用:
-  * 使用promise实现超时处理
+    <head>
+        <meta charset="UTF-8" />
+        <title>11_Promise对象</title>
+    </head>
+    <body>
+        <!--
+            1. 理解:
+            * Promise对象: 代表了未来某个将要发生的事件(通常是一个异步操作)
+            * 有了promise对象, 可以将异步操作以同步的流程表达出来, 避免了层层嵌套的回调函数(俗称'回调地狱')
+            * ES6的Promise是一个构造函数, 用来生成promise实例
+            2. 使用promise基本步骤(2步):
+            * 创建promise对象
+                let promise = new Promise((resolve, reject) => {
+                    //初始化promise状态为 pending
+                //执行异步操作
+                if(异步操作成功) {
+                    resolve(value);//修改promise的状态为fullfilled
+                } else {
+                    reject(errMsg);//修改promise的状态为rejected
+                }
+                })
+            * 调用promise的then()
+                promise.then(function(
+                result => console.log(result),
+                errorMsg => alert(errorMsg)
+                ))
+            3. promise对象的3个状态
+            * pending: 初始化状态
+            * fullfilled: 成功状态
+            * rejected: 失败状态
+            4. 应用:
+            * 使用promise实现超时处理
 
-  * 使用promise封装处理ajax请求
-    let request = new XMLHttpRequest();
-    request.onreadystatechange = function () {
-    }
-    request.responseType = 'json';
-    request.open("GET", url);
-    request.send();
--->
+            * 使用promise封装处理ajax请求
+                let request = new XMLHttpRequest();
+                request.onreadystatechange = function () {
+                }
+                request.responseType = 'json';
+                request.open("GET", url);
+                request.send();
+            -->
+        <script type="text/javascript">
+            // 创建 Promise 对象，构造函数里面要写一个 function（也算是一个回调）
+            let promise = new Promise((resolve, reject) => {
+                // 初始化 promise 状态为 pending（初始化状态）
+                console.log("111");
+                // 执行异步操作，通常是发送ajax请求、开启定时器
+                setTimeout(() => {
+                    console.log("333");
+                    // 根据异步任务的返回结果来去修改promise的状态
+                    // 假如异步任务执行成功，调用 resolve 函数
+                    // (可以根据 http 状态码来判断是否成功）
+                    // resolve("哈哈，成功了"); // 修改 promise 的状态为 fullfilled：成功的状态
 
-<script type="text/javascript">
+                    // 假如异步任务执行失败，调用 reject 函数
+                    reject("糟糕，失败了"); // 修改 promise 的状态为 rejected：失败的状态
+                }, 2000);
+            });
+            // 输出111之后输出222，说明上面是同步代码
+            console.log("222");
 
+            promise.then(
+                data => {
+                    // 成功的回调
+                    console.log(data, "成功了");
+                },
+                error => {
+                    // 失败的回调
+                    console.log(error, "失败了");
+                }
+            );
 
-</script>
+            // 定义获取新闻的功能函数
+            // 要发两次请求，第二次请求拿评论受限于第一次
+            function getNews(url) {
+                let promise = new Promise((resolve, reject) => {
+                    // 状态：初始化
+                    // 执行异步任务
+                    // 原生AJAX
+                    // 创建 xmlHttp 对象
+                    let xmlHttp = new XMLHttpRequest();
+                    // 刚初始化的时候，readystate 为 0
+                    console.log(xmlHttp.readyState);
+                    // 绑定监听 readyState
+                    /*
+                    xmlHttp.onreadystatechange = function() {
+                        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                            //请求成功
+                            console.log(xmlHttp.responseText);
+                            // 修改状态
+                            resolve(xmlHttp.responseText); // 修改 promise 的状态为成功的状态
+                        } else {
+                            // 请求失败
+                            reject("暂时没有新闻内容");
+                        }
+                    };
+                    */
 
-</body>
+                    // 修正逻辑
+                    xmlHttp.onreadystatechange = function() {
+                        if (xmlHttp.readyState === 4) {
+                            if (xmlHttp.status === 200) {
+                                //请求成功
+                                console.log(xmlHttp.responseText);
+                                // 修改状态
+                                resolve(xmlHttp.responseText); // 修改 promise 的状态为成功的状态
+                            } else {
+                                // 请求失败
+                                reject("暂时没有新闻内容");
+                            }
+                        }
+                    };
 
+                    // open 设置请求的方式以及 url
+                    // 第三个参数设置为 false，则为同步发，否则默认异步
+                    // 基本没有人发同步
+                    xmlHttp.open("GET", url);
+                    // 发送
+                    xmlHttp.send();
+                });
+                return promise;
+            }
+
+            getNews("http://localhost:3000/news?id=2")
+                .then(
+                    data => {
+                        console.log(typeof data); // 使用原生ajax，这里得到的是字符串
+                        // 发送请求获取评论内容准备 url
+                        let commentsUrl = JSON.parse(data).commentsUrl;
+                        let url = `http://localhost:3000${commentsUrl}`;
+                        // 发送请求
+                        return getNews(url);
+                    },
+                    error => {
+                        console.log(error);
+                    }
+                )
+                .then(
+                    data => {
+                        console.log(data);
+                    },
+                    error => {
+                        console.log(error);
+                    }
+                );
+        </script>
+    </body>
 </html>

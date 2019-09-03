@@ -1,29 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>06_for_of循环</title>
-</head>
-<body>
+    <head>
+        <meta charset="UTF-8" />
+        <title>06_for_of循环</title>
+    </head>
+    <body>
+        <!--
+            for(let value of target){}循环遍历
+            // for of 之所以能遍历，是因为被遍历对象实现了 iterator 接口
+            1. 遍历数组
+            2. 遍历Set
+            3. 遍历Map
+            4. 遍历字符串
+            5. 遍历伪数组（arguments）
+        -->
 
-<!--
-for(let value of target){}循环遍历
-  1. 遍历数组
-  2. 遍历Set
-  3. 遍历Map
-  4. 遍历字符串
-  5. 遍历伪数组
--->
+        <button>按钮1</button>
+        <button>按钮2</button>
+        <button>按钮3</button>
 
-<button>按钮1</button>
-<button>按钮2</button>
-<button>按钮3</button>
+        <script type="text/javascript">
+            let set = new Set([1, 2, 4, 5, 5, 6]);
+            for (let i of set) {
+                console.log(i);
+            }
 
-<script type="text/javascript">
-
-
-
-</script>
-</body>
-
+            // Set 的作用：为数组去重
+            let arr = [1, 2, 2, 3];
+            let arr1 = arr;
+            arr = [];
+            let set1 = new Set(arr1);
+            for (let i of set1) {
+                arr.push(i);
+            }
+            console.log(arr);
+        </script>
+    </body>
 </html>
